@@ -1,0 +1,29 @@
+import java.sql.*;
+
+public class ReservaManager {
+    private Connection conn;
+
+    public ReservaManager() {
+        try {
+            conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/hotel", "usuario", "contraseña");
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void hacerReserva(int idCliente, int idHabitacion, String fechaInicio, String fechaFin) {
+        try {
+            PreparedStatement stmt = conn.prepareStatement("INSERT INTO reservas (id_cliente, id_habitacion, fecha_inicio, fecha_fin) VALUES (?, ?, ?, ?)");
+            stmt.setInt(1, idCliente);
+            stmt.setInt(2, idHabitacion);
+            stmt.setString(3, fechaInicio);
+            stmt.setString(4, fechaFin);
+            stmt.executeUpdate();
+            System.out.println("Reserva realizada correctamente.");
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
+    // Otras operaciones CRUD...
+}
