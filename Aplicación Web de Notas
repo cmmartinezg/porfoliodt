@@ -1,0 +1,19 @@
+// Componente de React para mostrar una lista de notas
+import React from 'react';
+
+function NotasList({ notas }) {
+    return (
+        <div>
+            <h2>Lista de Notas</h2>
+            <ul>
+                {notas.map(nota => (
+                    <li key={nota.id}>
+                        {nota.titulo} - {nota.contenido}
+                    </li>
+                ))}
+            </ul>
+        </div>
+    );
+}
+
+export default NotasList;
