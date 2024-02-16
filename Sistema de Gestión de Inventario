@@ -1,0 +1,28 @@
+import java.sql.*;
+
+public class InventarioManager {
+    private Connection conn;
+
+    public InventarioManager() {
+        try {
+            conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/inventario", "usuario", "contraseña");
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void agregarProducto(String nombre, int cantidad, double precio) {
+        try {
+            PreparedStatement stmt = conn.prepareStatement("INSERT INTO productos (nombre, cantidad, precio) VALUES (?, ?, ?)");
+            stmt.setString(1, nombre);
+            stmt.setInt(2, cantidad);
+            stmt.setDouble(3, precio);
+            stmt.executeUpdate();
+            System.out.println("Producto agregado correctamente.");
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
+    // Otras operaciones CRUD...
+}
