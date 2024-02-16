@@ -1,0 +1,15 @@
+import sqlite3
+
+conn = sqlite3.connect('restaurante.db')
+cursor = conn.cursor()
+
+def realizar_pedido(id_cliente, id_producto, cantidad):
+    try:
+        cursor.execute("INSERT INTO pedidos (id_cliente, id_producto, cantidad) VALUES (?, ?, ?)", (id_cliente, id_producto, cantidad))
+        conn.commit()
+        print("Pedido realizado correctamente.")
+    except sqlite3.Error as e:
+        print("Error al realizar el pedido:", e)
+
+
+conn.close()
