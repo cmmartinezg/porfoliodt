@@ -1,0 +1,27 @@
+import java.sql.*;
+
+public class ProyectoManager {
+    private Connection conn;
+
+    public ProyectoManager() {
+        try {
+            conn = DriverManager.getConnection("jdbc:oracle:thin:@localhost:1521:xe", "usuario", "contraseña");
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void agregarProyecto(String nombre, String descripcion) {
+        try {
+            PreparedStatement stmt = conn.prepareStatement("INSERT INTO proyectos (nombre, descripcion) VALUES (?, ?)");
+            stmt.setString(1, nombre);
+            stmt.setString(2, descripcion);
+            stmt.executeUpdate();
+            System.out.println("Proyecto agregado correctamente.");
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
+    // Otras operaciones CRUD...
+}
